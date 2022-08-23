@@ -42,7 +42,7 @@ interview_1_1 = function(data_org){
   while(flag_int == F){
     interview_num = readline(prompt="Enter number: ")
     interview_num = as.integer(interview_num)
-    if(!is.na(interview_num) & is.integer(interview_num)){
+    if(!is.na(interview_num) & is.integer(interview_num) & interview_num > 0){
       flag_int = T
     }
   }
@@ -84,15 +84,22 @@ interview_1_1 = function(data_org){
     interview_df$Word_1_cat[i] = choose_cat
 
     #Sample a random word that is from interviewee choice
-    data_sample = data %>%
-      filter(category == choose_cat)
-    random_str = data_sample$word[sample(1:length(data_sample$word), 1)]
+    while(flag_confirm == F){
+      data_sample = data %>%
+        filter(category == choose_cat)
+      random_str = data_sample$word[sample(1:length(data_sample$word), 1)]
 
-    message(paste0('The random word chosen from "', choose_cat, '" is .....'))
-    cat("     ", random_str)
+      message(paste0('The random word chosen from "', choose_cat, '" is .....'))
+      cat("     ", random_str, "\n")
+      message("OK?")
+      sure = readline(prompt = "Enter Y/N:")
+      if(sure == "Y" | sure == "y"){
+        flag_confirm = T
+      }
+    }
+    flag_confirm = F
 
     interview_df$Word_1[i] = random_str
-
     #Remove used word from list
     data = data %>%
       filter(word != random_str)
