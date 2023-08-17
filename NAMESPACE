@@ -2,4 +2,5 @@
 
 export("%>%")
 export(interview_1n1)
+export(set_seed)
 importFrom(magrittr,"%>%")

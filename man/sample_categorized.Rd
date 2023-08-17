@@ -4,12 +4,10 @@
 \alias{sample_categorized}
 \title{Sampling based on categories presented}
 \usage{
-sample_categorized(data, seed = NULL, force = FALSE)
+sample_categorized(data, force = FALSE)
 }
 \arguments{
 \item{data}{Choices in dataframe, consisting of \code{category} and \code{word}}
-
-\item{seed}{Seed for the pseudo-random selection. By default (\code{NULL}), seed will be selected based on \code{Sys.time()}}
 
 \item{force}{Can the interview reject the choice? By default (\code{FALSE}), the interviewee \emph{can} reject the choice}
 }

@@ -1,7 +1,6 @@
 #' Sampling based on pseudo-random selection
 #'
 #' @param data Choices in dataframe, consisting of `category` and `word`
-#' @param seed Seed for the pseudo-random selection. By default (`NULL`), seed will be selected based on `Sys.time()`
 #' @param force Can the interview reject the choice? By default (`FALSE`), the interviewee *can* reject the choice.
 #'
 #' @return A vector of 2 words, as follow
@@ -12,9 +11,6 @@
 #' @examples sample_random(data, seed = 1)
 sample_random = function(data, seed = NULL, force = FALSE){
   flag = TRUE
-  if(is.null(seed)){seed = as.numeric(Sys.time())}
-  set.seed(seed)
-
   while(flag){
     choice = sample(1:nrow(data), 1)
     cat = data$category[choice]

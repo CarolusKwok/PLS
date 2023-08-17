@@ -9,8 +9,6 @@ sample_random(data, seed = NULL, force = FALSE)
 \arguments{
 \item{data}{Choices in dataframe, consisting of \code{category} and \code{word}}
 
-\item{seed}{Seed for the pseudo-random selection. By default (\code{NULL}), seed will be selected based on \code{Sys.time()}}
-
 \item{force}{Can the interview reject the choice? By default (\code{FALSE}), the interviewee \emph{can} reject the choice.}
 }
 \value{

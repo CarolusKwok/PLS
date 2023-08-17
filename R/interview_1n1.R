@@ -21,12 +21,6 @@ interview_1n1 = function(data, i = NULL, seed = NULL){
                                    Cat_2 = as.character(NA), Word_2 = as.character(NA),
                                    .rows = 0)
 
-  #Categorize algorithm ####
-  categorize = function(data){
-    data = dplyr::summarise(.data = dplyr::group_by(.data = data, category), count = dplyr::n())
-    return(invisible(data))
-  }
-
   #Check data input ####
   if(!hasArg(data)){return(invisible(cli::cli_warn(message = "Please input data into `data.`")))}
   if(!is.data.frame(data)){return(invisible(cli::cli_warn(message = "Please input dataframe into `data`.")))}
@@ -38,14 +32,13 @@ interview_1n1 = function(data, i = NULL, seed = NULL){
   }
 
   #START ####
+  PLS:::set_seed(seed = seed)
+
   ##Choose number of interviewees in this round ####
   cli::cli_text(cli::bg_yellow(cli::col_black("========== PLS word selection system ==========")))
 
   if(is.null(i)){
-    cli::cli_text("How many interviewees in this round?")
-    input = PLS:::enter_integer(range = c(1, Inf))
-    i = (1:input)
-    flag = T
+    i = PLS:::enter_interviewee()
   }
 
   i = as.character(i)
@@ -57,18 +50,19 @@ interview_1n1 = function(data, i = NULL, seed = NULL){
     cli::cli_text(cli::bg_br_white(cli::col_black("> Interviewee {j} <")))
 
     ###Select category and choose word ####
-    Choice_1 = PLS:::sample_categorized(data = data, seed = seed, force = FALSE)
+    Choice_1 = PLS:::sample_categorized(data = data, force = FALSE)
     Cat_1 = Choice_1[1]
     Word_1 = Choice_1[2]
 
     ###Randomly select the word from list ####
-    Choice_2 = dplyr::filter(.data = data, word != Word_1 & category != Cat_1) %>%
-      PLS:::sample_random(seed = seed, force = TRUE)
+    Choice_2 = PLS:::remove_category(data = data, category = Cat_1) %>%
+      PLS:::sample_random(force = TRUE)
     Cat_2 = Choice_2[1]
     Word_2 = Choice_2[2]
 
     ###Remove the word from `data` ####
-    data = dplyr::filter(.data = data, !(word %in% c(Word_1, Word_2)))
+    data = PLS:::remove_choice(data = data, words = tibble::tibble(category = c( Cat_1,  Cat_2),
+                                                                   word     = c(Word_1, Word_2)))
 
     ###Format data_selection by binding ###
     tmp_selection = data.frame(Person = j,
