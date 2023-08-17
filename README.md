@@ -3,6 +3,7 @@ PLS, standing for Peer Learning System, is a scheme at the University of Hong Ko
 This small, dynamic, and modular program helps with the interviewing process by selecting random words (from categories or not).
 
 ##Installation
-To install this program, type the following in {.code R}
-
-{.code devtools::install_github()}
+To install this program, type the following in  **R**
+```
+devtools::install_github(repo = "CarolusKwok/PLS")
+```
