@@ -7,3 +7,11 @@ To install this program, type the following in  **R**
 ```
 devtools::install_github(repo = "CarolusKwok/PLS")
 ```
+## Demo usage
+Create a dataframe with columns "category" and "word", then run the following code.
+```
+PLS::interview_1n1(data = dataframe)
+```
+
+## Custom usage
+Create a function with `PLS::sample_categorized` and `PLS::sample_random`.
