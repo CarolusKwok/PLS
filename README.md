@@ -14,4 +14,4 @@ PLS::interview_1n1(data = dataframe)
 ```
 
 ## Custom usage
-Create a function with `PLS::sample_categorized` and `PLS::sample_random`.
+Create a function with internal codes `PLS:::sample_categorized` and `PLS:::sample_random`. You should use the package `cli`, `tibble`, and `dplyr` too for easier control and better aesthetics.
